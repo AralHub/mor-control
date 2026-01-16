@@ -1,10 +1,4 @@
-import {
-	AppstoreAddOutlined,
-	BellOutlined,
-	MoonOutlined,
-	SearchOutlined,
-	ShoppingCartOutlined,
-} from "@ant-design/icons"
+import { AppstoreAddOutlined, BellOutlined, MoonOutlined, SearchOutlined } from "@ant-design/icons"
 import { Badge, Button, ConfigProvider, Flex, Input, Layout, Space, theme } from "antd"
 import { useResponsive } from "antd-style"
 import { type FC } from "react"
@@ -72,23 +66,6 @@ const HeaderLayout: FC = () => {
 								size={"large"}
 								icon={<AppstoreAddOutlined />}
 							/>
-							<Badge
-								color={"red"}
-								count={4}
-								styles={{
-									indicator: {
-										translate: "-25% 25%",
-									},
-								}}
-							>
-								<Button
-									shape={"circle"}
-									variant={"filled"}
-									color={"default"}
-									size={"large"}
-									icon={<ShoppingCartOutlined />}
-								/>
-							</Badge>
 							<Button
 								shape={"circle"}
 								variant={"filled"}
