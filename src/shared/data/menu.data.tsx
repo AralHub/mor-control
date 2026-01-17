@@ -8,26 +8,26 @@ export const menuData: MenuItem[] = [
 	{
 		key: "Dashboard",
 		type: "group",
-		label: "Dashboard",
+		label: "Главная",
 	},
 	{
 		key: "/",
 		icon: <HomeOutlined />,
-		label: <Link to={"/"}>Dashboard</Link>,
+		label: <Link to={"/"}>Главная</Link>,
 	},
 	{
 		key: "Pages",
 		type: "group",
-		label: "Pages",
+		label: "Информация",
 	},
 	{
 		key: "/employees",
 		icon: <TeamOutlined />,
-		label: <Link to={"/employees"}>Employees</Link>,
+		label: <Link to={"/employees"}>Сотрудники</Link>,
 	},
 	{
 		key: "/checklist",
 		icon: <ScheduleOutlined />,
-		label: <Link to={"/checklist"}>Checklist</Link>,
+		label: <Link to={"/checklist"}>Дома</Link>,
 	},
 ]

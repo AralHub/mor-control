@@ -19,29 +19,46 @@ import {
 	Row,
 	Space,
 	Table,
-	Tag,
-	theme,
-	Typography,
 } from "antd"
-import { css, cx } from "antd-style"
 import dayjs from "dayjs"
-import { useMemo, useState } from "react"
-import { streetData } from "src/shared/data"
+import { useState } from "react"
+import { Map, StatisticCard, type StatisticCardType } from "src/shared/ui"
 import { PageHeader } from "src/widgets/shared"
 
 export const Route = createFileRoute("/_layout/")({
 	component: RouteComponent,
 })
 
-const redItems = Array.from({ length: 13 }).map(() =>
-	Math.floor(Math.random() * (streetData.length - 1))
-)
-const grayItems = Array.from({ length: 7 }).map(() =>
-	Math.floor(Math.random() * (streetData.length - 1))
-)
-const yellowItems = Array.from({ length: 20 }).map(() =>
-	Math.floor(Math.random() * (streetData.length - 1))
-)
+const cardItems: StatisticCardType[] = [
+	{
+		color: "rgb(15, 98, 106)",
+		Icon: CheckCircleOutlined,
+		text: "view port",
+		title: "Проверено",
+		value: "213",
+	},
+	{
+		color: "rgb(191, 163, 72)",
+		Icon: ClockCircleOutlined,
+		text: "view port",
+		title: "Уведомлено",
+		value: "23",
+	},
+	{
+		color: "rgb(156, 61, 61)",
+		Icon: CloseCircleOutlined,
+		text: "view port",
+		title: "Не проверено",
+		value: "42",
+	},
+	{
+		color: "rgb(120, 130, 132)",
+		Icon: QuestionCircleOutlined,
+		text: "view port",
+		title: "Дома никого",
+		value: "12",
+	},
+]
 
 const modalData = Array.from({ length: 9 })
 	.map((_v, index) => ({
@@ -55,53 +72,10 @@ const modalData = Array.from({ length: 9 })
 
 function RouteComponent() {
 	const [selected, setSelected] = useState<number | null>(null)
-	const { token } = theme.useToken()
 	const [isGreen, setIsGreen] = useState(true)
 	const [isRed, setIsRed] = useState(true)
 	const [isGray, setIsGray] = useState(true)
 	const [isYellow, setIsYellow] = useState(true)
-
-	const streetStatusData = useMemo(() => {
-		return streetData.map((el, index) => ({
-			...el,
-			fill: redItems.includes(index)
-				? token.red
-				: grayItems.includes(index)
-					? "#9aa0a6"
-					: yellowItems.includes(index)
-						? token.yellow
-						: token.green,
-			status: redItems.includes(index)
-				? ("red" as const)
-				: grayItems.includes(index)
-					? ("gray" as const)
-					: yellowItems.includes(index)
-						? ("yellow" as const)
-						: ("green" as const),
-		}))
-	}, [token.green, token.red, token.yellow])
-
-	const filteredStreetData = useMemo(() => {
-		if (isGreen && isRed && isGray && isYellow) return streetStatusData
-
-		return streetStatusData
-			?.filter((el) => {
-				if (!isGreen) return el?.status !== "green"
-				return el
-			})
-			?.filter((el) => {
-				if (!isRed) return el?.status !== "red"
-				return el
-			})
-			?.filter((el) => {
-				if (!isGray) return el?.status !== "gray"
-				return el
-			})
-			?.filter((el) => {
-				if (!isYellow) return el?.status !== "yellow"
-				return el
-			})
-	}, [isGray, isGreen, isRed, isYellow, streetStatusData])
 
 	return (
 		<>
@@ -148,11 +122,11 @@ function RouteComponent() {
 				/>
 			</Modal>
 			<PageHeader
-				title={"Dashboard"}
+				title={"Главная"}
 				breadcrumb={[
 					{
 						key: "/",
-						title: "Dashboard",
+						title: "Главная",
 					},
 				]}
 				extra={[
@@ -185,162 +159,20 @@ function RouteComponent() {
 							gutter={24}
 							style={{ width: "100%", rowGap: 24 }}
 						>
-							<Col
-								xs={24}
-								sm={12}
-							>
-								<Card
-									variant={"borderless"}
-									styles={{
-										body: {
-											display: "flex",
-											gap: 8,
-											alignItems: "center",
-										},
-									}}
+							{cardItems.map((item) => (
+								<Col
+									xs={24}
+									sm={12}
 								>
-									<Tag
-										style={{
-											width: 50,
-											height: 50,
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											borderRadius: "50%",
-										}}
-										variant={"solid"}
-										color={"green"}
-									>
-										<CheckCircleOutlined style={{ fontSize: 24 }} />
-									</Tag>
-									<div>
-										<Typography.Title
-											level={2}
-											style={{ color: token.green }}
-										>
-											{streetStatusData?.filter((el) => el.status === "green")?.length}
-										</Typography.Title>
-										<Typography.Paragraph>Verified</Typography.Paragraph>
-									</div>
-								</Card>
-							</Col>
-							<Col
-								xs={24}
-								sm={12}
-							>
-								<Card
-									variant={"borderless"}
-									styles={{
-										body: {
-											display: "flex",
-											gap: 8,
-											alignItems: "center",
-										},
-									}}
-								>
-									<Tag
-										style={{
-											width: 50,
-											height: 50,
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											borderRadius: "50%",
-										}}
-										variant={"solid"}
-										color={"red"}
-									>
-										<CloseCircleOutlined style={{ fontSize: 24 }} />
-									</Tag>
-									<div>
-										<Typography.Title
-											level={2}
-											style={{ color: token.red }}
-										>
-											{streetStatusData?.filter((el) => el.status === "red")?.length}
-										</Typography.Title>
-										<Typography.Paragraph>Not Verified</Typography.Paragraph>
-									</div>
-								</Card>
-							</Col>
-							<Col
-								xs={24}
-								sm={12}
-							>
-								<Card
-									variant={"borderless"}
-									styles={{
-										body: {
-											display: "flex",
-											gap: 8,
-											alignItems: "center",
-										},
-									}}
-								>
-									<Tag
-										style={{
-											width: 50,
-											height: 50,
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											borderRadius: "50%",
-										}}
-										variant={"solid"}
-										color={"#9aa0a6"}
-									>
-										<QuestionCircleOutlined style={{ fontSize: 24 }} />
-									</Tag>
-									<div>
-										<Typography.Title
-											level={2}
-											style={{ color: "#9aa0a6" }}
-										>
-											{streetStatusData?.filter((el) => el.status === "gray")?.length}
-										</Typography.Title>
-										<Typography.Paragraph>Empty</Typography.Paragraph>
-									</div>
-								</Card>
-							</Col>
-							<Col
-								xs={24}
-								sm={12}
-							>
-								<Card
-									variant={"borderless"}
-									styles={{
-										body: {
-											display: "flex",
-											gap: 8,
-											alignItems: "center",
-										},
-									}}
-								>
-									<Tag
-										style={{
-											width: 50,
-											height: 50,
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											borderRadius: "50%",
-										}}
-										variant={"solid"}
-										color={"yellow"}
-									>
-										<ClockCircleOutlined style={{ fontSize: 24 }} />
-									</Tag>
-									<div>
-										<Typography.Title
-											level={2}
-											style={{ color: token.yellow }}
-										>
-											{streetStatusData?.filter((el) => el.status === "yellow")?.length}
-										</Typography.Title>
-										<Typography.Paragraph>Warned</Typography.Paragraph>
-									</div>
-								</Card>
-							</Col>
+									<StatisticCard
+										Icon={item.Icon}
+										color={item.color}
+										text={item.text}
+										title={item.title}
+										value={item.value}
+									/>
+								</Col>
+							))}
 						</Row>
 						<Card
 							variant={"borderless"}
@@ -351,25 +183,25 @@ function RouteComponent() {
 									checked={isGreen}
 									onChange={(e) => setIsGreen(e?.target?.checked)}
 								>
-									Green - Verified
+									green - проверено
 								</Checkbox>
 								<Checkbox
 									checked={isRed}
 									onChange={(e) => setIsRed(e?.target?.checked)}
 								>
-									Red - Not Verified
+									red
 								</Checkbox>
 								<Checkbox
 									checked={isGray}
 									onChange={(e) => setIsGray(e?.target?.checked)}
 								>
-									Gray - Empty
+									gray - Empty
 								</Checkbox>
 								<Checkbox
 									checked={isYellow}
 									onChange={(e) => setIsYellow(e?.target?.checked)}
 								>
-									Yello - Warned
+									yellow - Warned
 								</Checkbox>
 							</Space>
 						</Card>
@@ -430,51 +262,13 @@ function RouteComponent() {
 					xs={24}
 					md={14}
 				>
-					<Card
-						variant={"borderless"}
-						style={{
-							overflow: "hidden",
-							position: "relative",
-						}}
-						styles={{
-							body: {
-								padding: 0,
-							},
-						}}
-					>
-						<svg
-							width={"100%"}
-							height={"auto"}
-							viewBox={"0 0 2518 1800"}
-							fill={"none"}
-							xmlns={"http://www.w3.org/2000/svg"}
-							style={{
-								backgroundColor: "transparent",
-								backgroundImage: "url(/assets/map/street-2.png)",
-								backgroundRepeat: "no-repeat",
-								backgroundSize: "cover",
-							}}
-						>
-							{filteredStreetData.map((el, index) => (
-								<path
-									key={index}
-									{...el}
-									onClick={() => setSelected(index)}
-									className={cx(css`
-										cursor: pointer;
-
-										&:hover {
-											filter: brightness(1.2);
-										}
-
-										&:active {
-											filter: brightness(0.9);
-										}
-									`)}
-								/>
-							))}
-						</svg>
-					</Card>
+					<Map
+						isGray={isGray}
+						isGreen={isGreen}
+						isRed={isRed}
+						isYellow={isYellow}
+						setSelected={setSelected}
+					/>
 				</Col>
 			</Row>
 		</>
