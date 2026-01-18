@@ -28,6 +28,6 @@ export const menuData: MenuItem[] = [
 	{
 		key: "/checklist",
 		icon: <ScheduleOutlined />,
-		label: <Link to={"/checklist"}>Дома</Link>,
+		label: <Link to={"/checklist"}>Чек лист</Link>,
 	},
 ]

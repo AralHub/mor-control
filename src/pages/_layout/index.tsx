@@ -6,20 +6,7 @@ import {
 	SyncOutlined,
 } from "@ant-design/icons"
 import { createFileRoute } from "@tanstack/react-router"
-import {
-	Badge,
-	Button,
-	Card,
-	Checkbox,
-	Col,
-	DatePicker,
-	Flex,
-	Image,
-	Modal,
-	Row,
-	Space,
-	Table,
-} from "antd"
+import { Button, Card, Checkbox, Col, DatePicker, Flex, Image, Modal, Row, Table } from "antd"
 import dayjs from "dayjs"
 import { useState } from "react"
 import { Map, StatisticCard, type StatisticCardType } from "src/shared/ui"
@@ -143,22 +130,16 @@ function RouteComponent() {
 					/>,
 				]}
 			/>
-			<Row
-				gutter={24}
-				style={{ rowGap: 24 }}
-			>
+			<Row gutter={[20, 20]}>
 				<Col
 					xs={24}
-					md={10}
+					md={8}
 				>
 					<Flex
 						vertical={true}
 						gap={24}
 					>
-						<Row
-							gutter={24}
-							style={{ width: "100%", rowGap: 24 }}
-						>
+						<Row gutter={[20, 20]}>
 							{cardItems.map((item) => (
 								<Col
 									xs={24}
@@ -174,94 +155,15 @@ function RouteComponent() {
 								</Col>
 							))}
 						</Row>
-						<Card
-							variant={"borderless"}
-							title={"Filter by Status"}
-						>
-							<Space wrap={true}>
-								<Checkbox
-									checked={isGreen}
-									onChange={(e) => setIsGreen(e?.target?.checked)}
-								>
-									green - проверено
-								</Checkbox>
-								<Checkbox
-									checked={isRed}
-									onChange={(e) => setIsRed(e?.target?.checked)}
-								>
-									red
-								</Checkbox>
-								<Checkbox
-									checked={isGray}
-									onChange={(e) => setIsGray(e?.target?.checked)}
-								>
-									gray - Empty
-								</Checkbox>
-								<Checkbox
-									checked={isYellow}
-									onChange={(e) => setIsYellow(e?.target?.checked)}
-								>
-									yellow - Warned
-								</Checkbox>
-							</Space>
-						</Card>
-						<Card
-							variant={"borderless"}
-							title={"Color Legend"}
-						>
-							<Flex vertical={true}>
-								<Badge
-									styles={{
-										indicator: {
-											width: 12,
-											height: 12,
-										},
-									}}
-									status={"processing"}
-									color={"red"}
-									text={"Red - House requires immediate verification"}
-								/>
-								<Badge
-									styles={{
-										indicator: {
-											width: 12,
-											height: 12,
-										},
-									}}
-									status={"processing"}
-									color={"#9aa0a6"}
-									text={"Gray - No occupants present in the house"}
-								/>
-								<Badge
-									styles={{
-										indicator: {
-											width: 12,
-											height: 12,
-										},
-									}}
-									status={"processing"}
-									color={"green"}
-									text={"Green - House warned and fully verified"}
-								/>
-								<Badge
-									styles={{
-										indicator: {
-											width: 12,
-											height: 12,
-										},
-									}}
-									status={"processing"}
-									color={"yellow"}
-									text={"Yellow - House warned but not yet verified"}
-								/>
-							</Flex>
-						</Card>
 					</Flex>
 				</Col>
 				<Col
 					xs={24}
-					md={14}
-				>
+					md={8}
+				></Col>
+			</Row>
+			<Card variant={"borderless"}>
+				<Flex gap={20}>
 					<Map
 						isGray={isGray}
 						isGreen={isGreen}
@@ -269,8 +171,37 @@ function RouteComponent() {
 						isYellow={isYellow}
 						setSelected={setSelected}
 					/>
-				</Col>
-			</Row>
+					<Flex
+						vertical={true}
+						gap={20}
+					>
+						<Checkbox
+							checked={isGreen}
+							onChange={(e) => setIsGreen(e?.target?.checked)}
+						>
+							зеленый - проверенные дома
+						</Checkbox>
+						<Checkbox
+							checked={isRed}
+							onChange={(e) => setIsRed(e?.target?.checked)}
+						>
+							красный - не проверенные дома
+						</Checkbox>
+						<Checkbox
+							checked={isGray}
+							onChange={(e) => setIsGray(e?.target?.checked)}
+						>
+							серый - не было дома владельца
+						</Checkbox>
+						<Checkbox
+							checked={isYellow}
+							onChange={(e) => setIsYellow(e?.target?.checked)}
+						>
+							желтый - уведомили владельца
+						</Checkbox>
+					</Flex>
+				</Flex>
+			</Card>
 		</>
 	)
 }

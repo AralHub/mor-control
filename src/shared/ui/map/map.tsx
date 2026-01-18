@@ -73,10 +73,14 @@ export const Map: FC<MapProps> = ({ isGray, isGreen, isRed, isYellow, setSelecte
 
 	return (
 		<Card
-			variant={"borderless"}
+			variant={"outlined"}
 			style={{
+				width: "50%",
 				overflow: "hidden",
 				position: "relative",
+				boxShadow: "none",
+				padding: 5,
+				borderColor: token.colorPrimary,
 			}}
 			styles={{
 				body: {
