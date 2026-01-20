@@ -1,4 +1,4 @@
-import { theme, Typography } from "antd"
+import { Flex, Image, Typography } from "antd"
 import type { TitleProps } from "antd/es/typography/Title"
 import { type FC } from "react"
 
@@ -7,31 +7,37 @@ interface LogoProps extends TitleProps {
 }
 
 const Logo: FC<LogoProps> = ({ style, collapsed, ...props }) => {
-	const { token } = theme.useToken()
-
+	// const { token } = theme.useToken()
+	
 	return (
 		<>
-			<Typography.Title
-				style={{
-					textTransform: "uppercase",
-					textAlign: "center",
-					fontWeight: 700,
-					lineHeight: 1,
-					whiteSpace: "nowrap",
-					...style,
-				}}
-				level={2}
-				{...props}
-			>
-				{collapsed ? (
-					<span style={{ fontSize: "inherit", color: token.colorPrimary, lineHeight: 1 }}>G</span>
-				) : (
-					<>
-						<span style={{ fontSize: "inherit", color: token.colorPrimary, lineHeight: 1 }}>G</span>{" "}
-						- Safe
-					</>
-				)}
-			</Typography.Title>
+			<Flex gap={8} align={"center"} justify={"center"}>
+				<Image
+					src={"/icon.svg"}
+					fallback={"/public/icon.svg"}
+					width={40}
+					height={40}
+					style={{
+						minWidth: 40,
+					}}
+				/>
+				
+				<Typography.Title
+					style={{
+						textTransform: "uppercase",
+						textAlign: "center",
+						fontWeight: 700,
+						lineHeight: 1,
+						whiteSpace: "nowrap",
+						...style,
+					}}
+					level={2}
+					hidden={collapsed}
+					{...props}
+				>
+					- Safe
+				</Typography.Title>
+			</Flex>
 		</>
 	)
 }

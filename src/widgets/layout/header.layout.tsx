@@ -7,7 +7,7 @@ import { MenuButton } from "src/widgets/actions/menu.button.tsx"
 const HeaderLayout: FC = () => {
 	const { token } = theme.useToken()
 	const { md } = useResponsive()
-
+	
 	return (
 		<>
 			<ConfigProvider
@@ -26,6 +26,11 @@ const HeaderLayout: FC = () => {
 						paddingInline: md ? 40 : token.padding,
 						lineHeight: 1,
 						display: "flex",
+						position: "sticky",
+						top: 0,
+						left: 0,
+						right: 0,
+						zIndex: 10,
 					}}
 				>
 					<Flex

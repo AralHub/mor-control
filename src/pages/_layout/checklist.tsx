@@ -11,9 +11,9 @@ const data = Array.from({ length: 9 })
 	.map((_v, index) => ({
 		check_id: index + 1,
 		house: index + 1,
-		status: index % 5 === 0 ? "red" : "green",
+		status: index % 5 === 0 ? "red" : index % 7 === 0 ? "orange" : "green",
 		date: `2026-01-0${1 + index}`,
-		inspector: "Илья Топурияы",
+		inspector: "Palensheev Tolenshe",
 	}))
 	.reverse()
 
@@ -21,7 +21,7 @@ function RouteComponent() {
 	return (
 		<>
 			<PageHeader
-				title={"Чек лист"}
+				title={"Проверочный лист"}
 				breadcrumb={[
 					{
 						key: "/",
@@ -29,7 +29,7 @@ function RouteComponent() {
 					},
 					{
 						key: "/checklist",
-						title: "Чек лист",
+						title: "Проверочный лист",
 					},
 				]}
 				extra={
@@ -37,7 +37,7 @@ function RouteComponent() {
 						type={"primary"}
 						icon={<SyncOutlined />}
 					>
-						Sync
+						Синхронизация
 					</Button>
 				}
 			/>
@@ -46,50 +46,57 @@ function RouteComponent() {
 				columns={[
 					{
 						width: 100,
-						title: "Check ID",
+						title: "ID",
 						dataIndex: "check_id",
 						key: "check_id",
 						render: (value) => `№${value}`,
 					},
 					{
-						title: "House",
+						title: "Дом",
 						dataIndex: "house",
 						key: "house",
-						render: (value) => `House №${value}`,
+						render: (value) => `Дом №${value}`,
 					},
 					{
-						title: "Status",
+						title: "Статус",
 						dataIndex: "status",
 						key: "status",
-						render: (status: "green" | "red") =>
+						render: (status: "green" | "red" | "orange") =>
 							status === "red" ? (
 								<Tag
 									color={"red"}
 									variant={"solid"}
 								>
-									Not Verified
+									Не проверено
+								</Tag>
+							) : status === "orange" ? (
+								<Tag
+									color={"orange"}
+									variant={"solid"}
+								>
+									Уведомлено
 								</Tag>
 							) : (
 								<Tag
 									color={"green"}
 									variant={"solid"}
 								>
-									Verified
+									Проверено
 								</Tag>
 							),
 					},
 					{
-						title: "Date",
+						title: "Дата",
 						dataIndex: "date",
 						key: "date",
 					},
 					{
-						title: "Inspector",
+						title: "Инспектор",
 						dataIndex: "inspector",
 						key: "inspector",
 					},
 					{
-						title: "Image",
+						title: "Фото",
 						dataIndex: "image",
 						key: "image",
 						render: () => <UserOutlined style={{ fontSize: 50 }} />,

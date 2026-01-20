@@ -3,17 +3,17 @@ import { createFileRoute, Link } from "@tanstack/react-router"
 import { Button, Table } from "antd"
 import { PageHeader } from "src/widgets/shared"
 
-export const Route = createFileRoute("/_layout/company")({
+export const Route = createFileRoute("/_layout/companies")({
 	component: RouteComponent,
 })
 
 const data = Array.from({ length: 9 })
 	.map((_v, index) => ({
 		id: index + 1,
-		name: `Company ${index + 1}`,
+		name: `Компания ${index + 1}`,
 		tin: "324234223",
-		telefon: "+998 94 231-23-23",
-		director: "Макс Холоуэй",
+		phone: "+998 94 231-23-23",
+		director: "Palensheev Tolenshe",
 		address: "Жуманазаров 45",
 	}))
 	.reverse()
@@ -22,15 +22,15 @@ function RouteComponent() {
 	return (
 		<>
 			<PageHeader
-				title={"Компания"}
+				title={"Компании"}
 				breadcrumb={[
 					{
 						key: "/",
 						title: <Link to={"/"}>Главная</Link>,
 					},
 					{
-						key: "/employees",
-						title: "Компания",
+						key: "/companies",
+						title: "Компании",
 					},
 				]}
 				extra={
@@ -38,7 +38,7 @@ function RouteComponent() {
 						icon={<PlusOutlined />}
 						type={"primary"}
 					>
-						Добавить Компанию
+						Добавить компанию
 					</Button>
 				}
 			/>
@@ -67,8 +67,8 @@ function RouteComponent() {
 					},
 					{
 						title: "Телефон",
-						dataIndex: "telefon",
-						key: "telefon",
+						dataIndex: "phone",
+						key: "phone",
 					},
 				]}
 			/>

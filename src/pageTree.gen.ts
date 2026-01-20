@@ -12,11 +12,18 @@ import { Route as rootRouteImport } from "./pages/__root"
 import { Route as LayoutRouteImport } from "./pages/_layout"
 import { Route as AuthRouteImport } from "./pages/_auth"
 import { Route as LayoutIndexRouteImport } from "./pages/_layout/index"
-import { Route as LayoutInspectorInfoRouteImport } from "./pages/_layout/inspectorInfo"
-import { Route as LayoutEmployeesRouteImport } from "./pages/_layout/employees"
-import { Route as LayoutCompanyRouteImport } from "./pages/_layout/company"
+import { Route as LayoutUncheckedHousesRouteImport } from "./pages/_layout/unchecked-houses"
+import { Route as LayoutHousesRouteImport } from "./pages/_layout/houses"
+import { Route as LayoutHouseOwnersRouteImport } from "./pages/_layout/house-owners"
+import { Route as LayoutHouseCommitteeRouteImport } from "./pages/_layout/house-committee"
+import { Route as LayoutEmptyHousesRouteImport } from "./pages/_layout/empty-houses"
+import { Route as LayoutCompaniesRouteImport } from "./pages/_layout/companies"
 import { Route as LayoutChecklistRouteImport } from "./pages/_layout/checklist"
+import { Route as LayoutCheckedHousesRouteImport } from "./pages/_layout/checked-houses"
+import { Route as LayoutActsRouteImport } from "./pages/_layout/acts"
 import { Route as AuthLoginRouteImport } from "./pages/_auth/login"
+import { Route as LayoutEmployeesIndexRouteImport } from "./pages/_layout/employees/index"
+import { Route as LayoutEmployeesEmployeeIdRouteImport } from "./pages/_layout/employees/$employeeId"
 
 const LayoutRoute = LayoutRouteImport.update({
   id: "/_layout",
@@ -31,19 +38,34 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: "/",
   getParentRoute: () => LayoutRoute,
 } as any)
-const LayoutInspectorInfoRoute = LayoutInspectorInfoRouteImport.update({
-  id: "/inspectorInfo",
-  path: "/inspectorInfo",
+const LayoutUncheckedHousesRoute = LayoutUncheckedHousesRouteImport.update({
+  id: "/unchecked-houses",
+  path: "/unchecked-houses",
   getParentRoute: () => LayoutRoute,
 } as any)
-const LayoutEmployeesRoute = LayoutEmployeesRouteImport.update({
-  id: "/employees",
-  path: "/employees",
+const LayoutHousesRoute = LayoutHousesRouteImport.update({
+  id: "/houses",
+  path: "/houses",
   getParentRoute: () => LayoutRoute,
 } as any)
-const LayoutCompanyRoute = LayoutCompanyRouteImport.update({
-  id: "/company",
-  path: "/company",
+const LayoutHouseOwnersRoute = LayoutHouseOwnersRouteImport.update({
+  id: "/house-owners",
+  path: "/house-owners",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutHouseCommitteeRoute = LayoutHouseCommitteeRouteImport.update({
+  id: "/house-committee",
+  path: "/house-committee",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutEmptyHousesRoute = LayoutEmptyHousesRouteImport.update({
+  id: "/empty-houses",
+  path: "/empty-houses",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCompaniesRoute = LayoutCompaniesRouteImport.update({
+  id: "/companies",
+  path: "/companies",
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutChecklistRoute = LayoutChecklistRouteImport.update({
@@ -51,66 +73,129 @@ const LayoutChecklistRoute = LayoutChecklistRouteImport.update({
   path: "/checklist",
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutCheckedHousesRoute = LayoutCheckedHousesRouteImport.update({
+  id: "/checked-houses",
+  path: "/checked-houses",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutActsRoute = LayoutActsRouteImport.update({
+  id: "/acts",
+  path: "/acts",
+  getParentRoute: () => LayoutRoute,
+} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: "/login",
   path: "/login",
   getParentRoute: () => AuthRoute,
 } as any)
+const LayoutEmployeesIndexRoute = LayoutEmployeesIndexRouteImport.update({
+  id: "/employees/",
+  path: "/employees/",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutEmployeesEmployeeIdRoute =
+  LayoutEmployeesEmployeeIdRouteImport.update({
+    id: "/employees/$employeeId",
+    path: "/employees/$employeeId",
+    getParentRoute: () => LayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   "/login": typeof AuthLoginRoute
+  "/acts": typeof LayoutActsRoute
+  "/checked-houses": typeof LayoutCheckedHousesRoute
   "/checklist": typeof LayoutChecklistRoute
-  "/company": typeof LayoutCompanyRoute
-  "/employees": typeof LayoutEmployeesRoute
-  "/inspectorInfo": typeof LayoutInspectorInfoRoute
+  "/companies": typeof LayoutCompaniesRoute
+  "/empty-houses": typeof LayoutEmptyHousesRoute
+  "/house-committee": typeof LayoutHouseCommitteeRoute
+  "/house-owners": typeof LayoutHouseOwnersRoute
+  "/houses": typeof LayoutHousesRoute
+  "/unchecked-houses": typeof LayoutUncheckedHousesRoute
   "/": typeof LayoutIndexRoute
+  "/employees/$employeeId": typeof LayoutEmployeesEmployeeIdRoute
+  "/employees": typeof LayoutEmployeesIndexRoute
 }
 export interface FileRoutesByTo {
   "/login": typeof AuthLoginRoute
+  "/acts": typeof LayoutActsRoute
+  "/checked-houses": typeof LayoutCheckedHousesRoute
   "/checklist": typeof LayoutChecklistRoute
-  "/company": typeof LayoutCompanyRoute
-  "/employees": typeof LayoutEmployeesRoute
-  "/inspectorInfo": typeof LayoutInspectorInfoRoute
+  "/companies": typeof LayoutCompaniesRoute
+  "/empty-houses": typeof LayoutEmptyHousesRoute
+  "/house-committee": typeof LayoutHouseCommitteeRoute
+  "/house-owners": typeof LayoutHouseOwnersRoute
+  "/houses": typeof LayoutHousesRoute
+  "/unchecked-houses": typeof LayoutUncheckedHousesRoute
   "/": typeof LayoutIndexRoute
+  "/employees/$employeeId": typeof LayoutEmployeesEmployeeIdRoute
+  "/employees": typeof LayoutEmployeesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/_auth": typeof AuthRouteWithChildren
   "/_layout": typeof LayoutRouteWithChildren
   "/_auth/login": typeof AuthLoginRoute
+  "/_layout/acts": typeof LayoutActsRoute
+  "/_layout/checked-houses": typeof LayoutCheckedHousesRoute
   "/_layout/checklist": typeof LayoutChecklistRoute
-  "/_layout/company": typeof LayoutCompanyRoute
-  "/_layout/employees": typeof LayoutEmployeesRoute
-  "/_layout/inspectorInfo": typeof LayoutInspectorInfoRoute
+  "/_layout/companies": typeof LayoutCompaniesRoute
+  "/_layout/empty-houses": typeof LayoutEmptyHousesRoute
+  "/_layout/house-committee": typeof LayoutHouseCommitteeRoute
+  "/_layout/house-owners": typeof LayoutHouseOwnersRoute
+  "/_layout/houses": typeof LayoutHousesRoute
+  "/_layout/unchecked-houses": typeof LayoutUncheckedHousesRoute
   "/_layout/": typeof LayoutIndexRoute
+  "/_layout/employees/$employeeId": typeof LayoutEmployeesEmployeeIdRoute
+  "/_layout/employees/": typeof LayoutEmployeesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | "/login"
+    | "/acts"
+    | "/checked-houses"
     | "/checklist"
-    | "/company"
-    | "/employees"
-    | "/inspectorInfo"
+    | "/companies"
+    | "/empty-houses"
+    | "/house-committee"
+    | "/house-owners"
+    | "/houses"
+    | "/unchecked-houses"
     | "/"
+    | "/employees/$employeeId"
+    | "/employees"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/login"
+    | "/acts"
+    | "/checked-houses"
     | "/checklist"
-    | "/company"
-    | "/employees"
-    | "/inspectorInfo"
+    | "/companies"
+    | "/empty-houses"
+    | "/house-committee"
+    | "/house-owners"
+    | "/houses"
+    | "/unchecked-houses"
     | "/"
+    | "/employees/$employeeId"
+    | "/employees"
   id:
     | "__root__"
     | "/_auth"
     | "/_layout"
     | "/_auth/login"
+    | "/_layout/acts"
+    | "/_layout/checked-houses"
     | "/_layout/checklist"
-    | "/_layout/company"
-    | "/_layout/employees"
-    | "/_layout/inspectorInfo"
+    | "/_layout/companies"
+    | "/_layout/empty-houses"
+    | "/_layout/house-committee"
+    | "/_layout/house-owners"
+    | "/_layout/houses"
+    | "/_layout/unchecked-houses"
     | "/_layout/"
+    | "/_layout/employees/$employeeId"
+    | "/_layout/employees/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -141,25 +226,46 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
-    "/_layout/inspectorInfo": {
-      id: "/_layout/inspectorInfo"
-      path: "/inspectorInfo"
-      fullPath: "/inspectorInfo"
-      preLoaderRoute: typeof LayoutInspectorInfoRouteImport
+    "/_layout/unchecked-houses": {
+      id: "/_layout/unchecked-houses"
+      path: "/unchecked-houses"
+      fullPath: "/unchecked-houses"
+      preLoaderRoute: typeof LayoutUncheckedHousesRouteImport
       parentRoute: typeof LayoutRoute
     }
-    "/_layout/employees": {
-      id: "/_layout/employees"
-      path: "/employees"
-      fullPath: "/employees"
-      preLoaderRoute: typeof LayoutEmployeesRouteImport
+    "/_layout/houses": {
+      id: "/_layout/houses"
+      path: "/houses"
+      fullPath: "/houses"
+      preLoaderRoute: typeof LayoutHousesRouteImport
       parentRoute: typeof LayoutRoute
     }
-    "/_layout/company": {
-      id: "/_layout/company"
-      path: "/company"
-      fullPath: "/company"
-      preLoaderRoute: typeof LayoutCompanyRouteImport
+    "/_layout/house-owners": {
+      id: "/_layout/house-owners"
+      path: "/house-owners"
+      fullPath: "/house-owners"
+      preLoaderRoute: typeof LayoutHouseOwnersRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/house-committee": {
+      id: "/_layout/house-committee"
+      path: "/house-committee"
+      fullPath: "/house-committee"
+      preLoaderRoute: typeof LayoutHouseCommitteeRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/empty-houses": {
+      id: "/_layout/empty-houses"
+      path: "/empty-houses"
+      fullPath: "/empty-houses"
+      preLoaderRoute: typeof LayoutEmptyHousesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/companies": {
+      id: "/_layout/companies"
+      path: "/companies"
+      fullPath: "/companies"
+      preLoaderRoute: typeof LayoutCompaniesRouteImport
       parentRoute: typeof LayoutRoute
     }
     "/_layout/checklist": {
@@ -169,12 +275,40 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutChecklistRouteImport
       parentRoute: typeof LayoutRoute
     }
+    "/_layout/checked-houses": {
+      id: "/_layout/checked-houses"
+      path: "/checked-houses"
+      fullPath: "/checked-houses"
+      preLoaderRoute: typeof LayoutCheckedHousesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/acts": {
+      id: "/_layout/acts"
+      path: "/acts"
+      fullPath: "/acts"
+      preLoaderRoute: typeof LayoutActsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     "/_auth/login": {
       id: "/_auth/login"
       path: "/login"
       fullPath: "/login"
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRoute
+    }
+    "/_layout/employees/": {
+      id: "/_layout/employees/"
+      path: "/employees"
+      fullPath: "/employees"
+      preLoaderRoute: typeof LayoutEmployeesIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/employees/$employeeId": {
+      id: "/_layout/employees/$employeeId"
+      path: "/employees/$employeeId"
+      fullPath: "/employees/$employeeId"
+      preLoaderRoute: typeof LayoutEmployeesEmployeeIdRouteImport
+      parentRoute: typeof LayoutRoute
     }
   }
 }
@@ -190,19 +324,33 @@ const AuthRouteChildren: AuthRouteChildren = {
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface LayoutRouteChildren {
+  LayoutActsRoute: typeof LayoutActsRoute
+  LayoutCheckedHousesRoute: typeof LayoutCheckedHousesRoute
   LayoutChecklistRoute: typeof LayoutChecklistRoute
-  LayoutCompanyRoute: typeof LayoutCompanyRoute
-  LayoutEmployeesRoute: typeof LayoutEmployeesRoute
-  LayoutInspectorInfoRoute: typeof LayoutInspectorInfoRoute
+  LayoutCompaniesRoute: typeof LayoutCompaniesRoute
+  LayoutEmptyHousesRoute: typeof LayoutEmptyHousesRoute
+  LayoutHouseCommitteeRoute: typeof LayoutHouseCommitteeRoute
+  LayoutHouseOwnersRoute: typeof LayoutHouseOwnersRoute
+  LayoutHousesRoute: typeof LayoutHousesRoute
+  LayoutUncheckedHousesRoute: typeof LayoutUncheckedHousesRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutEmployeesEmployeeIdRoute: typeof LayoutEmployeesEmployeeIdRoute
+  LayoutEmployeesIndexRoute: typeof LayoutEmployeesIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutActsRoute: LayoutActsRoute,
+  LayoutCheckedHousesRoute: LayoutCheckedHousesRoute,
   LayoutChecklistRoute: LayoutChecklistRoute,
-  LayoutCompanyRoute: LayoutCompanyRoute,
-  LayoutEmployeesRoute: LayoutEmployeesRoute,
-  LayoutInspectorInfoRoute: LayoutInspectorInfoRoute,
+  LayoutCompaniesRoute: LayoutCompaniesRoute,
+  LayoutEmptyHousesRoute: LayoutEmptyHousesRoute,
+  LayoutHouseCommitteeRoute: LayoutHouseCommitteeRoute,
+  LayoutHouseOwnersRoute: LayoutHouseOwnersRoute,
+  LayoutHousesRoute: LayoutHousesRoute,
+  LayoutUncheckedHousesRoute: LayoutUncheckedHousesRoute,
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutEmployeesEmployeeIdRoute: LayoutEmployeesEmployeeIdRoute,
+  LayoutEmployeesIndexRoute: LayoutEmployeesIndexRoute,
 }
 
 const LayoutRouteWithChildren =

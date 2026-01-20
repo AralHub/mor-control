@@ -43,7 +43,7 @@ export const Map: FC<MapProps> = ({ isGray, isGreen, isRed, isYellow, setSelecte
 						? ("yellow" as const)
 						: ("green" as const),
 		}))
-	}, [token.green, token.red, token.yellow])
+	}, [])
 
 	const filteredStreetData = useMemo(() => {
 		if (isGreen && isRed && isGray && isYellow) return streetStatusData

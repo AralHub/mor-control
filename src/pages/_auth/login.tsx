@@ -16,6 +16,9 @@ import {
 	Typography,
 } from "antd"
 import { css, cx } from "antd-style"
+import { useEffect } from "react"
+import { useAuth } from "src/shared/hooks"
+import { formatInputPhone } from "src/shared/utils"
 
 export const Route = createFileRoute("/_auth/login")({
 	component: RouteComponent,
@@ -24,15 +27,21 @@ export const Route = createFileRoute("/_auth/login")({
 function RouteComponent() {
 	const { token } = theme.useToken()
 	const [form] = Form.useForm()
-
+	const auth = useAuth()
 	const navigate = useNavigate()
-
-	const onFinish: FormProps["onFinish"] = () => {
-		navigate({
-			to: "/",
-			replace: true,
-		})
+	
+	const onFinish: FormProps["onFinish"] = async () => {
+		auth.login("token1234567890")
 	}
+	
+	useEffect(() => {
+		if (auth?.isAuth) {
+			navigate({
+				to: "/",
+				replace: true,
+			})
+		}
+	}, [auth?.isAuth, navigate])
 	return (
 		<>
 			<Card
@@ -54,21 +63,24 @@ function RouteComponent() {
 						xs={24}
 						lg={14}
 					>
+						
 						<Typography.Title
 							style={{
 								textTransform: "uppercase",
 								marginTop: token.marginLG,
 								textAlign: "center",
 								fontWeight: 700,
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
 							}}
 						>
-							<Typography.Text
-								strong={true}
-								style={{ fontSize: "inherit", color: token.colorPrimary }}
-							>
-								MOR
-							</Typography.Text>
-							-Admin
+							<Image
+								src={"/icon.svg"}
+								fallback={"/public/icon.svg"}
+								width={48}
+								height={48}
+							/>-Safe
 						</Typography.Title>
 						<Flex justify={"center"}>
 							<Image
@@ -110,7 +122,7 @@ function RouteComponent() {
 									}}
 								>
 									<Typography.Title>
-										<span style={{ color: token.colorWhite }}>Welcome To</span> MOR-Admin!
+										<span style={{ color: token.colorWhite }}>Добро пожаловать в</span> G-Safe!
 									</Typography.Title>
 									<Typography.Paragraph
 										style={{
@@ -120,12 +132,12 @@ function RouteComponent() {
 											fontWeight: 500,
 										}}
 									>
-										Sign in with your data that you enter during your registration
+										Войдите в систему, используя данные учетной записи.
 									</Typography.Paragraph>
 								</div>
 								<Form.Item
 									name={"phone_number"}
-									label={"Phone number"}
+									label={"Телефон номер"}
 									rules={[{ required: true }]}
 								>
 									<InputNumber
@@ -138,12 +150,14 @@ function RouteComponent() {
 											height: 52,
 											backgroundColor: "rgba(255, 255, 255, 0.4)",
 										}}
+										maxLength={"998 90 123 45 67".length}
 										placeholder={"998 90 123 45 67"}
+										formatter={formatInputPhone}
 									/>
 								</Form.Item>
 								<Form.Item
 									name={"password"}
-									label={"Password"}
+									label={"Пароль"}
 									rules={[{ required: true }]}
 								>
 									<Input.Password
@@ -178,7 +192,7 @@ function RouteComponent() {
 												}
 											`)}
 										>
-											Remember me
+											Запомнить меня
 										</Checkbox>
 									</ConfigProvider>
 								</Form.Item>
@@ -189,7 +203,7 @@ function RouteComponent() {
 										block={true}
 										type={"primary"}
 									>
-										Sign In
+										Войти в систему
 									</Button>
 								</Form.Item>
 							</Form>

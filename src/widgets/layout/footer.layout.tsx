@@ -18,7 +18,7 @@ const FooterLayout: FC = () => {
 					strong={true}
 					style={{ color: "#082f32" }}
 				>
-					Copyright © {new Date().getFullYear()} MOR-Admin. All rights reserved
+					Copyright © {new Date().getFullYear()} G-Safe. All rights reserved
 				</Typography.Paragraph>
 			</Layout.Footer>
 		</>

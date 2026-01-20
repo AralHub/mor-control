@@ -6,9 +6,10 @@ import { blueColor, grayColor, greenColor, redColor, yellowColor } from "src/sha
 
 const { Title, Text } = Typography
 
-export const Route = createFileRoute("/_layout/inspectorInfo")({
+export const Route = createFileRoute("/_layout/employees/$employeeId")({
 	component: RouteComponent,
 })
+
 type Point = {
 	x: number
 	y: number
@@ -35,15 +36,14 @@ const demoTrack: Point[] = [
 
 function RouteComponent() {
 	const [index, setIndex] = useState(0)
-
+	
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setIndex((i) => (i + 1 < demoTrack.length ? i + 1 : i))
 		}, 600)
-
+		
 		return () => clearInterval(timer)
 	}, [])
-
 	return (
 		<>
 			<Row gutter={[20, 20]}>
@@ -90,15 +90,15 @@ function RouteComponent() {
 									}}
 								>
 									<Flex
-										justify="center"
-										align="center"
+										justify={"center"}
+										align={"center"}
 										style={{ paddingRight: 2, paddingTop: 1 }}
 									>
 										{p.d}
 									</Flex>
 								</div>
 							))}
-
+							
 							<div
 								style={{
 									position: "absolute",
@@ -119,20 +119,20 @@ function RouteComponent() {
 				</Col>
 				<Col span={8}>
 					<Flex
-						vertical
+						vertical={true}
 						gap={20}
 					>
 						<Card>
 							<Flex
-								vertical
+								vertical={true}
 								gap={20}
 							>
 								<Flex
-									align="center"
-									justify="space-between"
+									align={"center"}
+									justify={"space-between"}
 								>
 									<Flex
-										align="center"
+										align={"center"}
 										gap={10}
 									>
 										<div
@@ -148,11 +148,11 @@ function RouteComponent() {
 									<Title level={5}>{demoTrack.filter((i) => i.color === greenColor).length}</Title>
 								</Flex>
 								<Flex
-									align="center"
-									justify="space-between"
+									align={"center"}
+									justify={"space-between"}
 								>
 									<Flex
-										align="center"
+										align={"center"}
 										gap={10}
 									>
 										<div
@@ -168,11 +168,11 @@ function RouteComponent() {
 									<Title level={5}>{demoTrack.filter((i) => i.color === redColor).length}</Title>
 								</Flex>
 								<Flex
-									align="center"
-									justify="space-between"
+									align={"center"}
+									justify={"space-between"}
 								>
 									<Flex
-										align="center"
+										align={"center"}
 										gap={10}
 									>
 										<div
@@ -188,11 +188,11 @@ function RouteComponent() {
 									<Title level={5}>{demoTrack.filter((i) => i.color === yellowColor).length}</Title>
 								</Flex>
 								<Flex
-									align="center"
-									justify="space-between"
+									align={"center"}
+									justify={"space-between"}
 								>
 									<Flex
-										align="center"
+										align={"center"}
 										gap={10}
 									>
 										<div
@@ -212,81 +212,81 @@ function RouteComponent() {
 						<Card
 							actions={[
 								<EditOutlined
-									key="edit"
+									key={"edit"}
 									style={{ fontSize: 25, color: blueColor }}
 								/>,
 								<SettingOutlined
-									key="setting"
+									key={"setting"}
 									style={{ fontSize: 25 }}
 								/>,
 								<DeleteOutlined
-									key="ellipsis"
+									key={"ellipsis"}
 									style={{ fontSize: 25, color: redColor }}
 								/>,
 							]}
 						>
 							<Flex
-								vertical
+								vertical={true}
 								gap={20}
 							>
-								<Flex justify="center">
+								<Flex justify={"center"}>
 									<UserOutlined style={{ fontSize: 100 }} />
 								</Flex>
 								<Flex
-									justify="space-between"
-									align="center"
+									justify={"space-between"}
+									align={"center"}
 								>
 									<Text
-										type="secondary"
-										strong
+										type={"secondary"}
+										strong={true}
 									>
 										ФИО:
 									</Text>
-									<Title level={5}>Джастин Гейджи</Title>
+									<Title level={5}>Palensheev T.</Title>
 								</Flex>
 								<Flex
-									justify="space-between"
-									align="center"
+									justify={"space-between"}
+									align={"center"}
 								>
 									<Text
-										type="secondary"
-										strong
+										type={"secondary"}
+										strong={true}
 									>
 										Пол:
 									</Text>
 									<Title level={5}>Мужчина</Title>
 								</Flex>
 								<Flex
-									justify="space-between"
-									align="center"
+									justify={"space-between"}
+									align={"center"}
 								>
 									<Text
-										type="secondary"
-										strong
+										type={"secondary"}
+										strong={true}
 									>
 										Дата рождения:
 									</Text>
 									<Title level={5}>29-февраль 1994 г.</Title>
 								</Flex>
 								<Flex
-									justify="space-between"
-									align="center"
+									justify={"space-between"}
+									align={"center"}
 								>
 									<Text
-										type="secondary"
-										strong
+										type={"secondary"}
+										strong={true}
 									>
 										Телефон:
 									</Text>
 									<Title level={5}>+998 90 322-33-32</Title>
 								</Flex>
 								<Flex
-									justify="space-between"
-									align="center"
+									justify={"space-between"}
+									align={"center"}
 								>
 									<Text
-										type="secondary"
-										strong
+										type={"secondary"}
+										strong={true}
 									>
 										Должность:
 									</Text>

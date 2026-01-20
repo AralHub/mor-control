@@ -4,6 +4,7 @@ import { Avatar, Button, ConfigProvider, Flex, Menu, Popover, theme, Typography 
 import { useResponsive } from "antd-style"
 import { type FC, useMemo } from "react"
 import { menuData } from "src/shared/data"
+import { useAuth } from "src/shared/hooks"
 import { useMenuStore } from "src/shared/store"
 import { Logo } from "src/widgets/shared"
 import { SidebarContainer } from "./sidebar.container.tsx"
@@ -14,21 +15,23 @@ const SidebarLayout: FC = () => {
 	const { pathname } = useLocation()
 	const isCollapsed = useMenuStore((state) => state.isCollapsed)
 	const navigate = useNavigate()
-
+	const auth = useAuth()
+	
 	const collapsed = useMemo(() => {
 		if (!md) return false
 		if (xl) return isCollapsed
-
+		
 		return !xl
 	}, [isCollapsed, md, xl])
-
+	
 	const onLogout = () => {
+		auth.logout()
 		navigate({
 			to: "/login",
 			replace: true,
 		})
 	}
-
+	
 	const menuItems = useMemo(() => {
 		if (collapsed)
 			return menuData.map((el) => {
@@ -43,10 +46,10 @@ const SidebarLayout: FC = () => {
 					}
 				return el
 			})
-
+		
 		return menuData
 	}, [collapsed])
-
+	
 	return (
 		<>
 			<SidebarContainer>
@@ -127,7 +130,12 @@ const SidebarLayout: FC = () => {
 						</Flex>
 					</Popover>
 				</div>
-				<nav>
+				<nav style={{
+					height: "calc(100vh - 145px)",
+					overflowY: "auto",
+					scrollbarWidth: "thin",
+					scrollbarColor: `${token.colorBorder} transparent`,
+				}}>
 					<ConfigProvider
 						theme={{
 							components: {

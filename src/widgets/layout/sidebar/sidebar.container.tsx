@@ -14,7 +14,7 @@ const SidebarContainer: FC<PropsWithChildren> = ({ children }) => {
 		
 		return !xl
 	}, [isCollapsed, md, xl])
-
+	
 	if (!md)
 		return (
 			<Drawer
@@ -32,7 +32,7 @@ const SidebarContainer: FC<PropsWithChildren> = ({ children }) => {
 				{children}
 			</Drawer>
 		)
-
+	
 	return (
 		<>
 			<Layout.Sider
@@ -41,6 +41,12 @@ const SidebarContainer: FC<PropsWithChildren> = ({ children }) => {
 				width={288}
 				style={{
 					boxShadow: "0 -12.8px 19.2px rgba(40, 35, 45, 0.1)",
+					position: "sticky",
+					top: 0,
+					left: 0,
+					bottom: 0,
+					zIndex: 10,
+					height: "100vh"
 				}}
 			>
 				{children}
