@@ -24,13 +24,11 @@ const Logo: FC<LogoProps> = ({ style, collapsed, ...props }) => {
 				{...props}
 			>
 				{collapsed ? (
-					<span style={{ fontSize: "inherit", color: token.colorPrimary, lineHeight: 1 }}>MA</span>
+					<span style={{ fontSize: "inherit", color: token.colorPrimary, lineHeight: 1 }}>G</span>
 				) : (
 					<>
-						<span style={{ fontSize: "inherit", color: token.colorPrimary, lineHeight: 1 }}>
-							MOR
-						</span>{" "}
-						- Admin
+						<span style={{ fontSize: "inherit", color: token.colorPrimary, lineHeight: 1 }}>G</span>{" "}
+						- Safe
 					</>
 				)}
 			</Typography.Title>
