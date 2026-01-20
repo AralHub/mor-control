@@ -1,4 +1,4 @@
-import { HomeOutlined, ScheduleOutlined, TeamOutlined } from "@ant-design/icons"
+import { GoldOutlined, HomeOutlined, ScheduleOutlined, TeamOutlined } from "@ant-design/icons"
 import { Link } from "@tanstack/react-router"
 import type { MenuProps } from "antd"
 
@@ -23,11 +23,16 @@ export const menuData: MenuItem[] = [
 	{
 		key: "/employees",
 		icon: <TeamOutlined />,
-		label: <Link to={"/employees"}>Сотрудники</Link>,
+		label: <Link to={"/employees"}>Инспектор</Link>,
 	},
 	{
 		key: "/checklist",
 		icon: <ScheduleOutlined />,
 		label: <Link to={"/checklist"}>Чек лист</Link>,
+	},
+	{
+		key: "/company",
+		icon: <GoldOutlined />,
+		label: <Link to={"/company"}>Компания</Link>,
 	},
 ]

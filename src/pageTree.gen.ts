@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from "./pages/__root"
 import { Route as LayoutRouteImport } from "./pages/_layout"
 import { Route as AuthRouteImport } from "./pages/_auth"
 import { Route as LayoutIndexRouteImport } from "./pages/_layout/index"
+import { Route as LayoutInspectorInfoRouteImport } from "./pages/_layout/inspectorInfo"
 import { Route as LayoutEmployeesRouteImport } from "./pages/_layout/employees"
+import { Route as LayoutCompanyRouteImport } from "./pages/_layout/company"
 import { Route as LayoutChecklistRouteImport } from "./pages/_layout/checklist"
 import { Route as AuthLoginRouteImport } from "./pages/_auth/login"
 
@@ -29,9 +31,19 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: "/",
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutInspectorInfoRoute = LayoutInspectorInfoRouteImport.update({
+  id: "/inspectorInfo",
+  path: "/inspectorInfo",
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutEmployeesRoute = LayoutEmployeesRouteImport.update({
   id: "/employees",
   path: "/employees",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCompanyRoute = LayoutCompanyRouteImport.update({
+  id: "/company",
+  path: "/company",
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutChecklistRoute = LayoutChecklistRouteImport.update({
@@ -48,13 +60,17 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   "/login": typeof AuthLoginRoute
   "/checklist": typeof LayoutChecklistRoute
+  "/company": typeof LayoutCompanyRoute
   "/employees": typeof LayoutEmployeesRoute
+  "/inspectorInfo": typeof LayoutInspectorInfoRoute
   "/": typeof LayoutIndexRoute
 }
 export interface FileRoutesByTo {
   "/login": typeof AuthLoginRoute
   "/checklist": typeof LayoutChecklistRoute
+  "/company": typeof LayoutCompanyRoute
   "/employees": typeof LayoutEmployeesRoute
+  "/inspectorInfo": typeof LayoutInspectorInfoRoute
   "/": typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
@@ -63,21 +79,37 @@ export interface FileRoutesById {
   "/_layout": typeof LayoutRouteWithChildren
   "/_auth/login": typeof AuthLoginRoute
   "/_layout/checklist": typeof LayoutChecklistRoute
+  "/_layout/company": typeof LayoutCompanyRoute
   "/_layout/employees": typeof LayoutEmployeesRoute
+  "/_layout/inspectorInfo": typeof LayoutInspectorInfoRoute
   "/_layout/": typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/login" | "/checklist" | "/employees" | "/"
+  fullPaths:
+    | "/login"
+    | "/checklist"
+    | "/company"
+    | "/employees"
+    | "/inspectorInfo"
+    | "/"
   fileRoutesByTo: FileRoutesByTo
-  to: "/login" | "/checklist" | "/employees" | "/"
+  to:
+    | "/login"
+    | "/checklist"
+    | "/company"
+    | "/employees"
+    | "/inspectorInfo"
+    | "/"
   id:
     | "__root__"
     | "/_auth"
     | "/_layout"
     | "/_auth/login"
     | "/_layout/checklist"
+    | "/_layout/company"
     | "/_layout/employees"
+    | "/_layout/inspectorInfo"
     | "/_layout/"
   fileRoutesById: FileRoutesById
 }
@@ -109,11 +141,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    "/_layout/inspectorInfo": {
+      id: "/_layout/inspectorInfo"
+      path: "/inspectorInfo"
+      fullPath: "/inspectorInfo"
+      preLoaderRoute: typeof LayoutInspectorInfoRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     "/_layout/employees": {
       id: "/_layout/employees"
       path: "/employees"
       fullPath: "/employees"
       preLoaderRoute: typeof LayoutEmployeesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/company": {
+      id: "/_layout/company"
+      path: "/company"
+      fullPath: "/company"
+      preLoaderRoute: typeof LayoutCompanyRouteImport
       parentRoute: typeof LayoutRoute
     }
     "/_layout/checklist": {
@@ -145,13 +191,17 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface LayoutRouteChildren {
   LayoutChecklistRoute: typeof LayoutChecklistRoute
+  LayoutCompanyRoute: typeof LayoutCompanyRoute
   LayoutEmployeesRoute: typeof LayoutEmployeesRoute
+  LayoutInspectorInfoRoute: typeof LayoutInspectorInfoRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutChecklistRoute: LayoutChecklistRoute,
+  LayoutCompanyRoute: LayoutCompanyRoute,
   LayoutEmployeesRoute: LayoutEmployeesRoute,
+  LayoutInspectorInfoRoute: LayoutInspectorInfoRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 

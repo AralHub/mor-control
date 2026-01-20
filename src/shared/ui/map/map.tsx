@@ -2,6 +2,7 @@ import { Card, theme } from "antd"
 import { css, cx } from "antd-style"
 import { useMemo, type FC } from "react"
 import { streetData } from "src/shared/data"
+import { grayColor, greenColor, redColor, yellowColor } from ".."
 
 const redItems = Array.from({ length: 13 }).map(() =>
 	Math.floor(Math.random() * (streetData.length - 1))
@@ -12,11 +13,6 @@ const grayItems = Array.from({ length: 7 }).map(() =>
 const yellowItems = Array.from({ length: 20 }).map(() =>
 	Math.floor(Math.random() * (streetData.length - 1))
 )
-
-const greenColor = "rgb(15, 98, 106)"
-const yellowColor = "rgb(191, 163, 72)"
-const redColor = "rgb(156, 61, 61)"
-const grayColor = "rgb(120, 130, 132)"
 
 export type MapProps = {
 	isGreen: boolean
@@ -75,7 +71,7 @@ export const Map: FC<MapProps> = ({ isGray, isGreen, isRed, isYellow, setSelecte
 		<Card
 			variant={"outlined"}
 			style={{
-				width: "50%",
+				width: "70%",
 				overflow: "hidden",
 				position: "relative",
 				boxShadow: "none",
