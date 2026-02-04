@@ -13,6 +13,7 @@ import { Route as LayoutRouteImport } from "./pages/_layout"
 import { Route as AuthRouteImport } from "./pages/_auth"
 import { Route as LayoutIndexRouteImport } from "./pages/_layout/index"
 import { Route as LayoutUncheckedHousesRouteImport } from "./pages/_layout/unchecked-houses"
+import { Route as LayoutMapRouteImport } from "./pages/_layout/map"
 import { Route as LayoutHousesRouteImport } from "./pages/_layout/houses"
 import { Route as LayoutHouseOwnersRouteImport } from "./pages/_layout/house-owners"
 import { Route as LayoutHouseCommitteeRouteImport } from "./pages/_layout/house-committee"
@@ -41,6 +42,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
 const LayoutUncheckedHousesRoute = LayoutUncheckedHousesRouteImport.update({
   id: "/unchecked-houses",
   path: "/unchecked-houses",
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutMapRoute = LayoutMapRouteImport.update({
+  id: "/map",
+  path: "/map",
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutHousesRoute = LayoutHousesRouteImport.update({
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   "/house-committee": typeof LayoutHouseCommitteeRoute
   "/house-owners": typeof LayoutHouseOwnersRoute
   "/houses": typeof LayoutHousesRoute
+  "/map": typeof LayoutMapRoute
   "/unchecked-houses": typeof LayoutUncheckedHousesRoute
   "/": typeof LayoutIndexRoute
   "/employees/$employeeId": typeof LayoutEmployeesEmployeeIdRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   "/house-committee": typeof LayoutHouseCommitteeRoute
   "/house-owners": typeof LayoutHouseOwnersRoute
   "/houses": typeof LayoutHousesRoute
+  "/map": typeof LayoutMapRoute
   "/unchecked-houses": typeof LayoutUncheckedHousesRoute
   "/": typeof LayoutIndexRoute
   "/employees/$employeeId": typeof LayoutEmployeesEmployeeIdRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   "/_layout/house-committee": typeof LayoutHouseCommitteeRoute
   "/_layout/house-owners": typeof LayoutHouseOwnersRoute
   "/_layout/houses": typeof LayoutHousesRoute
+  "/_layout/map": typeof LayoutMapRoute
   "/_layout/unchecked-houses": typeof LayoutUncheckedHousesRoute
   "/_layout/": typeof LayoutIndexRoute
   "/_layout/employees/$employeeId": typeof LayoutEmployeesEmployeeIdRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | "/house-committee"
     | "/house-owners"
     | "/houses"
+    | "/map"
     | "/unchecked-houses"
     | "/"
     | "/employees/$employeeId"
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | "/house-committee"
     | "/house-owners"
     | "/houses"
+    | "/map"
     | "/unchecked-houses"
     | "/"
     | "/employees/$employeeId"
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | "/_layout/house-committee"
     | "/_layout/house-owners"
     | "/_layout/houses"
+    | "/_layout/map"
     | "/_layout/unchecked-houses"
     | "/_layout/"
     | "/_layout/employees/$employeeId"
@@ -231,6 +243,13 @@ declare module "@tanstack/react-router" {
       path: "/unchecked-houses"
       fullPath: "/unchecked-houses"
       preLoaderRoute: typeof LayoutUncheckedHousesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    "/_layout/map": {
+      id: "/_layout/map"
+      path: "/map"
+      fullPath: "/map"
+      preLoaderRoute: typeof LayoutMapRouteImport
       parentRoute: typeof LayoutRoute
     }
     "/_layout/houses": {
@@ -332,6 +351,7 @@ interface LayoutRouteChildren {
   LayoutHouseCommitteeRoute: typeof LayoutHouseCommitteeRoute
   LayoutHouseOwnersRoute: typeof LayoutHouseOwnersRoute
   LayoutHousesRoute: typeof LayoutHousesRoute
+  LayoutMapRoute: typeof LayoutMapRoute
   LayoutUncheckedHousesRoute: typeof LayoutUncheckedHousesRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
   LayoutEmployeesEmployeeIdRoute: typeof LayoutEmployeesEmployeeIdRoute
@@ -347,6 +367,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutHouseCommitteeRoute: LayoutHouseCommitteeRoute,
   LayoutHouseOwnersRoute: LayoutHouseOwnersRoute,
   LayoutHousesRoute: LayoutHousesRoute,
+  LayoutMapRoute: LayoutMapRoute,
   LayoutUncheckedHousesRoute: LayoutUncheckedHousesRoute,
   LayoutIndexRoute: LayoutIndexRoute,
   LayoutEmployeesEmployeeIdRoute: LayoutEmployeesEmployeeIdRoute,

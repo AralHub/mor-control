@@ -10,7 +10,6 @@ export const Route = createFileRoute("/_layout/checked-houses")({
 	component: RouteComponent,
 })
 
-// Генерируем данные о проверенных домах
 const generateHousesData = () => {
 	return Array.from({ length: 25 }, (_, index) => ({
 		key: index + 1,
@@ -36,16 +35,15 @@ function RouteComponent() {
 		dayjs(),
 	])
 
-	// Фильтруем данные по выбранному периоду
 	const filteredData = allHousesData.map((house) => {
-		// Находим дату последней проверки
-		const lastCheckDate = house.checks.length > 0
-			? house.checks.reduce((latest, check) => {
-					const checkDate = dayjs(check.date)
-					const latestDate = dayjs(latest.date)
-					return checkDate.isAfter(latestDate) ? check : latest
-				}, house.checks[0]).date
-			: null
+		const lastCheckDate =
+			house.checks.length > 0
+				? house.checks.reduce((latest, check) => {
+						const checkDate = dayjs(check.date)
+						const latestDate = dayjs(latest.date)
+						return checkDate.isAfter(latestDate) ? check : latest
+					}, house.checks[0]).date
+				: null
 
 		if (!dateRange || !dateRange[0] || !dateRange[1]) {
 			return {
@@ -58,8 +56,9 @@ function RouteComponent() {
 		const checkedInPeriod = house.checks.filter((check) => {
 			const checkDate = dayjs(check.date)
 			return (
-				checkDate.isAfter(dateRange[0], "day") || checkDate.isSame(dateRange[0], "day")
-			) && (checkDate.isBefore(dateRange[1], "day") || checkDate.isSame(dateRange[1], "day"))
+				(checkDate.isAfter(dateRange[0], "day") || checkDate.isSame(dateRange[0], "day")) &&
+				(checkDate.isBefore(dateRange[1], "day") || checkDate.isSame(dateRange[1], "day"))
+			)
 		})
 
 		return {
@@ -110,20 +109,15 @@ function RouteComponent() {
 						title: "Количество проверенных за период",
 						dataIndex: "checkedCount",
 						key: "checkedCount",
-						render: (value: number) => (
-							<Tag
-								color={"green"}
-							>
-								{value || 0}
-							</Tag>
-						),
+						render: (value: number) => <Tag color={"green"}>{value || 0}</Tag>,
 						sorter: (a, b) => a.checkedCount - b.checkedCount,
 					},
 					{
 						title: "Дата последней проверки",
 						dataIndex: "lastCheckDate",
 						key: "lastCheckDate",
-						render: (date: string | null) => date ? dayjs(date).format("D MMMM YYYY, HH:mm:ss") : "-",
+						render: (date: string | null) =>
+							date ? dayjs(date).format("D MMMM YYYY, HH:mm:ss") : "-",
 						sorter: (a, b) => {
 							if (!a.lastCheckDate) return 1
 							if (!b.lastCheckDate) return -1

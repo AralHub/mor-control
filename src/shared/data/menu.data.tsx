@@ -3,7 +3,8 @@ import {
 	CloseCircleOutlined,
 	FileAddOutlined,
 	GoldOutlined,
-	HomeOutlined, QuestionCircleOutlined,
+	HomeOutlined,
+	QuestionCircleOutlined,
 	ScheduleOutlined,
 	ShopOutlined,
 	TeamOutlined,
@@ -19,6 +20,11 @@ export const menuData: MenuItem[] = [
 		type: "group",
 		label: "Главная",
 	},
+	// {
+	// 	key: "/map",
+	// 	icon: <HomeOutlined />,
+	// 	label: <Link to={"/map"}>Карта</Link>,
+	// },
 	{
 		key: "/",
 		icon: <HomeOutlined />,

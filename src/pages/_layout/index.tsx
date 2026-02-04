@@ -55,7 +55,11 @@ const modalData = Array.from({ length: 4 })
 		key: index + 1,
 		check_id: index + 1,
 		date: `2026-01-0${1 + index}`,
-		inspector: "Palensheev T.",
+		time: `${9 + index}:00`,
+		inspector: "Апашев Байрон",
+		company: `компания ${index + 1}`,
+		amount: 75000,
+		userConfirmed: index % 2 === 0,
 	}))
 	.reverse()
 
@@ -70,7 +74,47 @@ const latestChecklists = Array.from({ length: 10 })
 	}))
 	.reverse()
 
-// Генерируем данные за месяц (30 дней)
+const topCompanies = Array.from({ length: 10 })
+	.map((_, index) => {
+		const checked = Math.floor(Math.random() * 300) + 20
+
+		return {
+			key: index + 1,
+			company: `компания ${index + 1}`,
+			checked,
+			income: checked * 75000,
+		}
+	})
+	.sort((a, b) => b.checked - a.checked)
+	.map((item, index) => ({
+		...item,
+		place: index + 1,
+	}))
+
+const dailyData = {
+	hours: Array.from({ length: 11 }, (_, i) => `${8 + i}:00`), // 08–18
+	checked: Array.from({ length: 11 }, () => Math.floor(Math.random() * 20)),
+	notChecked: Array.from({ length: 11 }, () => Math.floor(Math.random() * 10)),
+	empty: Array.from({ length: 11 }, () => Math.floor(Math.random() * 5)),
+	notified: Array.from({ length: 11 }, () => Math.floor(Math.random() * 8)),
+}
+
+const weeklyData = {
+	days: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+	checked: Array.from({ length: 7 }, () => Math.floor(Math.random() * 120)),
+	notChecked: Array.from({ length: 7 }, () => Math.floor(Math.random() * 60)),
+	empty: Array.from({ length: 7 }, () => Math.floor(Math.random() * 40)),
+	notified: Array.from({ length: 7 }, () => Math.floor(Math.random() * 50)),
+}
+
+const yearlyData = {
+	months: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+	checked: Array.from({ length: 12 }, () => Math.floor(Math.random() * 900)),
+	notChecked: Array.from({ length: 12 }, () => Math.floor(Math.random() * 400)),
+	empty: Array.from({ length: 12 }, () => Math.floor(Math.random() * 300)),
+	notified: Array.from({ length: 12 }, () => Math.floor(Math.random() * 350)),
+}
+
 const generateMonthlyData = () => {
 	const days = Array.from({ length: 30 }, (_, i) => {
 		const date = dayjs().subtract(29 - i, "day")
@@ -100,6 +144,7 @@ function RouteComponent() {
 		<>
 			<Modal
 				centered={true}
+				width={1000}
 				open={!!selected}
 				onCancel={() => {
 					setSelected(null)
@@ -112,12 +157,13 @@ function RouteComponent() {
 						style: {
 							cursor: "pointer",
 						},
-						onClick: () => navigate({
-							to: "/employees/$employeeId",
-							params: {
-								employeeId: `${selected}`,
-							},
-						}),
+						onClick: () =>
+							navigate({
+								to: "/employees/$employeeId",
+								params: {
+									employeeId: `${selected}`,
+								},
+							}),
 					})}
 					columns={[
 						{
@@ -125,6 +171,10 @@ function RouteComponent() {
 							dataIndex: "check_id",
 							key: "check_id",
 							render: (value) => `№${value}`,
+						},
+						{
+							title: "Время",
+							dataIndex: "time",
 						},
 						{
 							title: "Дата",
@@ -141,6 +191,40 @@ function RouteComponent() {
 							dataIndex: "image",
 							key: "image",
 							render: () => <UserOutlined style={{ fontSize: 50 }} />,
+						},
+						{
+							title: "Подтверждение",
+							dataIndex: "userConfirmed",
+							render: (v) => (
+								<>
+									{v ? (
+										<Tag
+											icon={<CheckCircleOutlined />}
+											color={"green"}
+											style={{ fontSize: 14 }}
+										>
+											подтвержден
+										</Tag>
+									) : (
+										<Tag
+											icon={<CloseCircleOutlined />}
+											color={"red"}
+											style={{ fontSize: 14 }}
+										>
+											не подтвержден
+										</Tag>
+									)}
+								</>
+							),
+						},
+						{
+							title: "Сумма",
+							dataIndex: "amount",
+							render: (v) => <>{v} сумм</>,
+						},
+						{
+							title: "компания",
+							dataIndex: "company",
 						},
 					]}
 				/>
@@ -193,7 +277,47 @@ function RouteComponent() {
 								</Col>
 							))}
 						</Row>
-						<Card title={"Последние проверочные листы"} styles={{ body: { padding: 0 } }}>
+						<Card
+							title={"Топ 10 компании"}
+							styles={{ body: { padding: 0 } }}
+						>
+							<Table
+								style={{ borderRadius: 0 }}
+								dataSource={topCompanies}
+								pagination={false}
+								size="small"
+								columns={[
+									{
+										width: 60,
+										title: "№",
+										dataIndex: "place",
+										key: "place",
+									},
+									{
+										title: "Компания",
+										dataIndex: "company",
+										key: "company",
+									},
+									{
+										title: "Проверено",
+										dataIndex: "checked",
+										key: "checked",
+										align: "center",
+									},
+									{
+										title: "Доход",
+										dataIndex: "income",
+										key: "income",
+										render: (value: number) => `${value.toLocaleString("ru-RU")} сум`,
+									},
+								]}
+							/>
+						</Card>
+
+						<Card
+							title={"Последние проверочные листы"}
+							styles={{ body: { padding: 0 } }}
+						>
 							<Table
 								style={{
 									borderRadius: 0,
@@ -202,12 +326,13 @@ function RouteComponent() {
 									style: {
 										cursor: "pointer",
 									},
-									onClick: () => navigate({
-										to: "/employees/$employeeId",
-										params: {
-											employeeId: `${selected}`,
-										},
-									}),
+									onClick: () =>
+										navigate({
+											to: "/employees/$employeeId",
+											params: {
+												employeeId: `${selected}`,
+											},
+										}),
 								})}
 								dataSource={latestChecklists}
 								pagination={false}
@@ -273,7 +398,10 @@ function RouteComponent() {
 					xs={24}
 					md={16}
 				>
-					<Flex vertical={true} gap={20}>
+					<Flex
+						vertical={true}
+						gap={20}
+					>
 						<Card variant={"borderless"}>
 							<Flex gap={20}>
 								<Map
@@ -314,7 +442,59 @@ function RouteComponent() {
 								</Flex>
 							</Flex>
 						</Card>
-						<Card title={"Статистика за месяц"} styles={{ body: { padding: 0 } }}>
+						<Card
+							title="Статистика за день"
+							styles={{ body: { padding: 0 } }}
+						>
+							<Chart
+								type="line"
+								height={300}
+								series={[
+									{ name: "Проверено", data: dailyData.checked, color: "rgb(32, 163, 158)" },
+									{ name: "Не проверено", data: dailyData.notChecked, color: redColor },
+									{ name: "Дома никого", data: dailyData.empty, color: "rgb(120,130,132)" },
+									{ name: "Уведомлено", data: dailyData.notified, color: yellowColor },
+								]}
+								options={{
+									xaxis: {
+										categories: dailyData.hours,
+										labels: {
+											rotate: -45,
+											rotateAlways: false,
+										},
+									},
+									stroke: { curve: "smooth", width: 2 },
+									dataLabels: { enabled: false },
+									legend: { position: "top" },
+								}}
+							/>
+						</Card>
+						<Card
+							title="Статистика за неделю"
+							styles={{ body: { padding: 0 } }}
+						>
+							<Chart
+								type="line"
+								height={300}
+								series={[
+									{ name: "Проверено", data: weeklyData.checked, color: "rgb(32, 163, 158)" },
+									{ name: "Не проверено", data: weeklyData.notChecked, color: redColor },
+									{ name: "Дома никого", data: weeklyData.empty, color: "rgb(120,130,132)" },
+									{ name: "Уведомлено", data: weeklyData.notified, color: yellowColor },
+								]}
+								options={{
+									xaxis: { categories: weeklyData.days },
+									stroke: { curve: "smooth", width: 2 },
+									dataLabels: { enabled: false },
+									legend: { position: "top" },
+								}}
+							/>
+						</Card>
+
+						<Card
+							title={"Статистика за месяц"}
+							styles={{ body: { padding: 0 } }}
+						>
 							<Chart
 								type={"line"}
 								height={350}
@@ -381,6 +561,27 @@ function RouteComponent() {
 											opacity: 0.5,
 										},
 									},
+								}}
+							/>
+						</Card>
+						<Card
+							title="Статистика за год"
+							styles={{ body: { padding: 0 } }}
+						>
+							<Chart
+								type="line"
+								height={300}
+								series={[
+									{ name: "Проверено", data: yearlyData.checked, color: "rgb(32, 163, 158)" },
+									{ name: "Не проверено", data: yearlyData.notChecked, color: redColor },
+									{ name: "Дома никого", data: yearlyData.empty, color: "rgb(120,130,132)" },
+									{ name: "Уведомлено", data: yearlyData.notified, color: yellowColor },
+								]}
+								options={{
+									xaxis: { categories: yearlyData.months },
+									stroke: { curve: "smooth", width: 2 },
+									dataLabels: { enabled: false },
+									legend: { position: "top" },
 								}}
 							/>
 						</Card>
