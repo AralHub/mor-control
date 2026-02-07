@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router"
-import type { EChartsOption } from "echarts"
 import { init, registerMap, use } from "echarts/core"
 import { MapChart } from "echarts/charts"
 import { GeoComponent } from "echarts/components"
@@ -38,7 +37,7 @@ const regions: RegionOption[] = Array.from({ length: 17 }).map((_, index) => ({
 
 function RouteComponent() {
 	const ref = useRef<HTMLDivElement>(null)
-	const [regionsMap, setRegionsMap] = useState<RegionOption[]>(regions)
+	const [regionsMap] = useState<RegionOption[]>(regions)
 
 	useEffect(() => {
 		if (!ref.current) return
@@ -47,7 +46,7 @@ function RouteComponent() {
 			renderer: "svg",
 		})
 
-		const option: EChartsOption = {
+		const option: any = {
 			geo: {
 				map: "qaraqalpaqstan-respublika",
 				roam: false,
